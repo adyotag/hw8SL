@@ -1,0 +1,10 @@
+{'C': 10, 'gamma': 0.1, 'kernel': 'sigmoid'}
+              precision    recall  f1-score   support
+
+           0       0.50      1.00      0.67         2
+           1       1.00      0.86      0.92        14
+
+    accuracy                           0.88        16
+   macro avg       0.75      0.93      0.79        16
+weighted avg       0.94      0.88      0.89        16
+
