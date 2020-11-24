@@ -34,14 +34,21 @@ for c in range(processed_data.shape[1]):    # Anywhere we have nan, we replace w
     nan_mask = np.isnan(processed_data[:,c])
     processed_data[nan_mask,c] = np.mean(processed_data[~nan_mask,c])
 
-X, y = processed_data[:,:-1], processed_data[:,-1] # divide into the X and y datasets
+
+
+
 
 # scale data in each column accordingly
-scaler = MinMaxScaler(feature_range=(-1, 1))
-X_scaled = scaler.fit_transform(X)
+scaler = MinMaxScaler(feature_range=(0, 1))
+scaled = scaler.fit_transform(processed_data)
+
+X_scaled = scaled[:,:-1]
+y = processed_data[:,-1] # divide into the X and y datasets
+
+
 
 # Split data
-X_train, X_test, y_train, y_test = tts(X, y, test_size=0.10)
+X_train, X_test, y_train, y_test = tts(X_scaled, y, test_size=0.10)
 
 
 # plotting method
@@ -63,6 +70,7 @@ def plot_model(history, number, name):	# model, model number
 	plt.xlabel('epoch')
 	plt.legend(['train', 'validation'], loc='upper left')
 	plt.savefig(name + '_accuracy.png')
+
 
 # model 1
 # Test Accuracy -->  
