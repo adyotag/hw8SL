@@ -43,19 +43,22 @@ y = (y-1).astype(int)
 X_train, X_test, y_train, y_test = tts(X, y, test_size=0.10)
 
 
+### Default SVC
+model = SVC()
+model.fit(X_train, y_train) 
+model_predictions = model.predict(X_test) 
+print(classification_report(y_test, model_predictions)) 
+print('\n\n\n')
+
+
+### Grid search
 # create and fir to SVC
 params = {'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000],  
           'gamma': ['auto', 0.0001, 0.001, 0.001, 0.01, 0.1, 1, 10], 
           'kernel': ['linear', 'poly', 'rbf', 'sigmoid', 'rbf']} 
 grid_model = GridSearchCV(SVC(), params, refit = True) 
 grid_model.fit(X_train, y_train) 
-
-
-# print best parameter after tuning 
 print(grid_model.best_params_) 
-
-
-# test best model
 grid_predictions = grid_model.predict(X_test) 
 print(classification_report(y_test, grid_predictions)) 
 
